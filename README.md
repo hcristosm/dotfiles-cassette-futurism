@@ -28,8 +28,21 @@ light mode) for KDE Plasma 6, built on Fedora KDE.
   for convenience so a fresh install doesn't lose it.
 - **Global Theme** (`look-and-feel/`) — two Plasma "Look and Feel" packages
   (`com.hcristosm.cassettefuturism.dark`/`.light`) that bundle the color
-  scheme, wallpaper, icon theme and cursor together so they show up as
-  single selectable entries in System Settings → Appearance → Global Theme.
+  scheme, wallpaper, icon theme, cursor and panel layout together so they
+  show up as single selectable entries in System Settings → Appearance →
+  Global Theme.
+- **Panel layout** — thin top bar (audio visualizer on the left, clock dead
+  center between two spacers, system tray/notifications on the right) plus
+  a bottom panel trimmed to launcher/pager/taskbar only. Baked into the
+  Global Theme packages' `layouts/org.kde.plasma.desktop-layout.js`, and
+  also applied directly by `install.sh` via `qdbus-qt6`.
+- **Widget** (`plasmoids/Audio.Wave.Widget/`) — vendored copy of
+  [Audio Wave Widget](https://github.com/zayronxio/Audio-Wave-Widget) by
+  zayronxio (GPLv3): MPRIS track info + a 9-band frequency visualizer,
+  shows itself only while audio is playing. Ships with a prebuilt x86-64
+  binary (`contents/ui/Lib/fft_dbus`) that talks to ALSA/D-Bus — no
+  compiling needed as long as `libasound.so.2` and `libdbus-1.so.3` are
+  present (they are, by default, on Fedora KDE).
 
 ## Install (fresh Fedora KDE system)
 

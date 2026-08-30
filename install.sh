@@ -49,6 +49,11 @@ mkdir -p "$DATA/plasma/look-and-feel"
 cp -r "$DOTDIR"/look-and-feel/com.hcristosm.cassettefuturism.dark "$DATA/plasma/look-and-feel/"
 cp -r "$DOTDIR"/look-and-feel/com.hcristosm.cassettefuturism.light "$DATA/plasma/look-and-feel/"
 
+echo "==> Widget: Audio Wave Widget (top-panel audio visualizer)"
+mkdir -p "$DATA/plasma/plasmoids"
+rm -rf "$DATA/plasma/plasmoids/Audio.Wave.Widget"
+cp -r "$DOTDIR"/plasmoids/Audio.Wave.Widget "$DATA/plasma/plasmoids/"
+
 echo "==> Applying Plasma settings (dark variant by default)"
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Dark
 kwriteconfig6 --file kcminputrc --group Mouse --key cursorTheme Bibata-Original-Amber
@@ -64,6 +69,34 @@ plasma-apply-colorscheme CassetteFuturismDark
 plasma-apply-wallpaperimage "$DATA/wallpapers/CassetteFuturismDark/contents/images/3840x2160.png"
 
 kbuildsycoca6 --noincremental >/dev/null 2>&1 || true
+
+echo "==> Panel layout: thin top bar (visualizer / centered clock / tray), bottom launcher+taskbar"
+if command -v qdbus-qt6 >/dev/null && pgrep -x plasmashell >/dev/null; then
+  PANEL_SCRIPT='
+var bottom = panels()[0];
+var widgets = bottom.widgets();
+var toRemove = [];
+for (var i = 0; i < widgets.length; i++) {
+    var t = widgets[i].type;
+    if (t == "org.kde.plasma.digitalclock" || t == "org.kde.plasma.systemtray") {
+        toRemove.push(widgets[i]);
+    }
+}
+for (var i = 0; i < toRemove.length; i++) { toRemove[i].remove(); }
+
+var top = new Panel();
+top.location = "top";
+top.height = 26;
+top.addWidget("Audio.Wave.Widget");
+top.addWidget("org.kde.plasma.panelspacer");
+top.addWidget("org.kde.plasma.digitalclock");
+top.addWidget("org.kde.plasma.panelspacer");
+top.addWidget("org.kde.plasma.systemtray");
+'
+  qdbus-qt6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$PANEL_SCRIPT"
+else
+  echo "  (plasmashell not running / qdbus-qt6 missing — skipped; log in and re-run this script, or apply the Global Theme from System Settings, which reproduces the same layout)"
+fi
 
 echo ""
 echo "Done. Log out/in for the cursor theme to fully apply everywhere."
