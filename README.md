@@ -7,8 +7,13 @@ light mode) for KDE Plasma 6, built on Fedora KDE.
 
 - **Color schemes** (`color-schemes/`) — `CassetteFuturismDark` (amber on
   near-black) and `CassetteFuturismLight` (rust/burnt-orange on warm beige).
-- **Wallpapers** (`wallpapers/`) — matching retro-sun/perspective-grid SVG
-  renders for each variant.
+- **Wallpapers** (`wallpapers/`) — dark variant is a retro amber-lit sci-fi
+  corridor ([source](https://wallhaven.cc/w/gwdgrd)), light variant is an
+  isometric grid of vintage pastel Macintoshes
+  ([source](https://wallhaven.cc/w/2y77v9)), both from Wallhaven. An
+  alternate dark wallpaper (green-toned retro office,
+  [source](https://wallhaven.cc/w/qroq77)) is kept in `wallpapers/alt/` if
+  you want to swap it in.
 - **Icons** — [Papirus](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
   with folders recolored to orange via
   [papirus-folders](https://github.com/PapirusDevelopmentTeam/papirus-folders).
@@ -39,12 +44,12 @@ the cursor theme applies everywhere.
 ```sh
 # dark (default)
 plasma-apply-colorscheme CassetteFuturismDark
-plasma-apply-wallpaperimage ~/.local/share/wallpapers/CassetteFuturismDark/contents/images/1920x1080.png
+plasma-apply-wallpaperimage ~/.local/share/wallpapers/CassetteFuturismDark/contents/images/3840x2160.png
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Dark
 
 # light
 plasma-apply-colorscheme CassetteFuturismLight
-plasma-apply-wallpaperimage ~/.local/share/wallpapers/CassetteFuturismLight/contents/images/1920x1080.png
+plasma-apply-wallpaperimage ~/.local/share/wallpapers/CassetteFuturismLight/contents/images/5328x3000.jpg
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Light
 ```
 
@@ -56,5 +61,6 @@ Then re-run `kbuildsycoca6 --noincremental` or log out/in.
   `plasma-apply-wallpaperimage`, and `kwriteconfig6` are part of
   `plasma-workspace`; no extra packages beyond `curl` and `tar` are required
   to run the installer.
-- Wallpaper source SVGs weren't kept — the shipped PNGs (1920x1080) are the
-  only copies. Regenerate at higher resolution if needed.
+- Wallpapers are third-party images from Wallhaven, used here for personal
+  desktop background use only — check the source links above before any
+  other kind of redistribution.

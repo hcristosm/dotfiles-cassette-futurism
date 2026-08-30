@@ -56,7 +56,7 @@ kwriteconfig6 --file kdeglobals --group General --key menuFont "Space Mono,10,-1
 kwriteconfig6 --file kwinrc --group WindowTitleBar --key Font "Space Mono,10,-1,5,63,0,0,0,0,0"
 
 plasma-apply-colorscheme CassetteFuturismDark
-plasma-apply-wallpaperimage "$DATA/wallpapers/CassetteFuturismDark/contents/images/1920x1080.png"
+plasma-apply-wallpaperimage "$DATA/wallpapers/CassetteFuturismDark/contents/images/3840x2160.png"
 
 kbuildsycoca6 --noincremental >/dev/null 2>&1 || true
 
@@ -64,5 +64,5 @@ echo ""
 echo "Done. Log out/in for the cursor theme to fully apply everywhere."
 echo "To switch to the light variant:"
 echo "  plasma-apply-colorscheme CassetteFuturismLight"
-echo "  plasma-apply-wallpaperimage $DATA/wallpapers/CassetteFuturismLight/contents/images/1920x1080.png"
+echo "  plasma-apply-wallpaperimage $DATA/wallpapers/CassetteFuturismLight/contents/images/5328x3000.jpg"
 echo "  kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Light"
