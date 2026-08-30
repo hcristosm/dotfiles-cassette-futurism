@@ -1,7 +1,9 @@
 #!/bin/sh
 # Cassette Futurism rice — installer for KDE Plasma
 # Reproduces: color schemes, wallpapers, icons (Papirus + orange folders),
-# cursor (Bibata Original Amber), fonts (Space Mono + VT323), konsole profile.
+# cursor (Bibata Original Amber), fonts (Space Mono + VT323), konsole profile,
+# panel layout (top status bar + trimmed bottom taskbar), and desktop
+# widgets (weather for Guarulhos, BR + a date-only readout).
 set -e
 
 DOTDIR="$(cd "$(dirname "$0")" && pwd)"
@@ -49,10 +51,12 @@ mkdir -p "$DATA/plasma/look-and-feel"
 cp -r "$DOTDIR"/look-and-feel/com.hcristosm.cassettefuturism.dark "$DATA/plasma/look-and-feel/"
 cp -r "$DOTDIR"/look-and-feel/com.hcristosm.cassettefuturism.light "$DATA/plasma/look-and-feel/"
 
-echo "==> Widget: Audio Wave Widget (top-panel audio visualizer)"
+echo "==> Widgets: Audio Wave Widget (fallback visualizer) + date-only readout"
 mkdir -p "$DATA/plasma/plasmoids"
-rm -rf "$DATA/plasma/plasmoids/Audio.Wave.Widget"
+rm -rf "$DATA/plasma/plasmoids/Audio.Wave.Widget" "$DATA/plasma/plasmoids/com.hcristosm.cassettefuturism.datewidget"
 cp -r "$DOTDIR"/plasmoids/Audio.Wave.Widget "$DATA/plasma/plasmoids/"
+cp -r "$DOTDIR"/plasmoids/com.hcristosm.cassettefuturism.datewidget "$DATA/plasma/plasmoids/"
+echo "  (optional: install Kurve for a nicer visualizer — see plasmoids/README.md)"
 
 echo "==> Applying Plasma settings (dark variant by default)"
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Dark
@@ -70,7 +74,7 @@ plasma-apply-wallpaperimage "$DATA/wallpapers/CassetteFuturismDark/contents/imag
 
 kbuildsycoca6 --noincremental >/dev/null 2>&1 || true
 
-echo "==> Panel layout: thin top bar (visualizer / centered clock / tray), bottom launcher+taskbar"
+echo "==> Panel layout + desktop widgets (top bar, bottom taskbar, date, weather)"
 if command -v qdbus-qt6 >/dev/null && pgrep -x plasmashell >/dev/null; then
   PANEL_SCRIPT='
 var bottom = panels()[0];
@@ -87,13 +91,34 @@ for (var i = 0; i < toRemove.length; i++) { toRemove[i].remove(); }
 var top = new Panel();
 top.location = "top";
 top.height = 26;
-top.addWidget("Audio.Wave.Widget");
+
+var visualizer = top.addWidget("luisbocanegra.audio.visualizer");
+if (!visualizer) {
+    top.addWidget("Audio.Wave.Widget");
+}
 top.addWidget("org.kde.plasma.panelspacer");
-top.addWidget("org.kde.plasma.digitalclock");
+
+var clock = top.addWidget("org.kde.plasma.digitalclock");
+clock.currentConfigGroup = ["Appearance"];
+clock.writeConfig("showDate", false);
+
 top.addWidget("org.kde.plasma.panelspacer");
 top.addWidget("org.kde.plasma.systemtray");
+
+var d = desktopsForActivity(currentActivity())[0];
+
+var weatherWidget = d.addWidget("org.kde.plasma.weather");
+weatherWidget.geometry = { x: 16, y: 0, width: 368, height: 352 };
+weatherWidget.currentConfigGroup = ["WeatherStation"];
+weatherWidget.writeConfig("provider", "bbcukmet");
+weatherWidget.writeConfig("placeDisplayName", "Guarulhos, Brazil, BR");
+weatherWidget.writeConfig("placeInfo", "Guarulhos, Brazil, BR|3461786");
+
+var dateWidget = d.addWidget("com.hcristosm.cassettefuturism.datewidget");
+dateWidget.geometry = { x: 16, y: 352, width: 368, height: 112 };
 '
   qdbus-qt6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$PANEL_SCRIPT"
+  kbuildsycoca6 --noincremental >/dev/null 2>&1 || true
 else
   echo "  (plasmashell not running / qdbus-qt6 missing — skipped; log in and re-run this script, or apply the Global Theme from System Settings, which reproduces the same layout)"
 fi

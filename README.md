@@ -31,18 +31,21 @@ light mode) for KDE Plasma 6, built on Fedora KDE.
   scheme, wallpaper, icon theme, cursor and panel layout together so they
   show up as single selectable entries in System Settings → Appearance →
   Global Theme.
-- **Panel layout** — thin top bar (audio visualizer on the left, clock dead
-  center between two spacers, system tray/notifications on the right) plus
-  a bottom panel trimmed to launcher/pager/taskbar only. Baked into the
-  Global Theme packages' `layouts/org.kde.plasma.desktop-layout.js`, and
-  also applied directly by `install.sh` via `qdbus-qt6`.
-- **Widget** (`plasmoids/Audio.Wave.Widget/`) — vendored copy of
-  [Audio Wave Widget](https://github.com/zayronxio/Audio-Wave-Widget) by
-  zayronxio (GPLv3): MPRIS track info + a 9-band frequency visualizer,
-  shows itself only while audio is playing. Ships with a prebuilt x86-64
-  binary (`contents/ui/Lib/fft_dbus`) that talks to ALSA/D-Bus — no
-  compiling needed as long as `libasound.so.2` and `libdbus-1.so.3` are
-  present (they are, by default, on Fedora KDE).
+- **Panel layout** — thin top bar (audio visualizer on the left, clock —
+  time only, no date — dead center between two spacers, system tray on the
+  right) plus a bottom panel trimmed to launcher/pager/taskbar only. Baked
+  into the Global Theme packages' `layouts/org.kde.plasma.desktop-layout.js`,
+  and also applied directly by `install.sh` via `qdbus-qt6`.
+- **Desktop widgets** — a weather widget (BBC provider, preconfigured for
+  Guarulhos, SP) stacked above a small custom date-only readout (weekday +
+  day + month + year, no clock face — self-themed off the active color
+  scheme's highlight/text colors). Both positioned top-left, also baked into
+  the layout script.
+- **Widgets** (`plasmoids/`) — see `plasmoids/README.md` for details on
+  each: the vendored `Audio.Wave.Widget` (fallback visualizer),
+  `com.hcristosm.cassettefuturism.datewidget` (the date-only readout,
+  vendored), and optional **Kurve** (preferred visualizer, not vendored —
+  needs a native build, instructions in that file).
 
 ## Install (fresh Fedora KDE system)
 
@@ -87,3 +90,5 @@ Then re-run `kbuildsycoca6 --noincremental` or log out/in.
 - Wallpapers are third-party images from Wallhaven, used here for personal
   desktop background use only — check the source links above before any
   other kind of redistribution.
+- Weather location is hardcoded to Guarulhos, SP — edit the `writeConfig`
+  calls in the layout scripts (or just reconfigure the widget) if you move.

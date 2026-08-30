@@ -1,0 +1,17 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            { "Name": "hcristosm" }
+        ],
+        "Id": "com.hcristosm.cassettefuturism.datewidget",
+        "Name": "Cassette Futurism Date",
+        "Description": "Date-only readout — weekday, day, month, year. No clock face.",
+        "Icon": "view-calendar-day",
+        "Category": "Date and Time",
+        "License": "CC0",
+        "ServiceTypes": ["Plasma/Applet"]
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-MainScript": "ui/main.qml"
+}
