@@ -19,3 +19,11 @@ cursorTheme=Bibata-Original-Amber
 [kwinrc][org.kde.kdecoration2]
 library=org.kde.breeze
 theme=Breeze
+BorderSize=None
+
+[breezerc][Common]
+OutlineCloseButton=false
+
+[breezerc][Windeco]
+ButtonSize=ButtonSmall
+DrawBorderOnMaximizedWindows=false

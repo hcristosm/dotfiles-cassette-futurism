@@ -72,6 +72,12 @@ kwriteconfig6 --file kdeglobals --group General --key fixed "Space Mono,10,-1,5,
 kwriteconfig6 --file kdeglobals --group General --key smallestReadableFont "Space Mono,8,-1,5,50,0,0,0,0,0"
 kwriteconfig6 --file kdeglobals --group General --key toolBarFont "Space Mono,10,-1,5,50,0,0,0,0,0"
 kwriteconfig6 --file kdeglobals --group General --key menuFont "Space Mono,10,-1,5,50,0,0,0,0,0"
+
+echo "==> Window decoration: flat Breeze (no close-button outline, thin borders, small buttons)"
+cp "$DOTDIR"/kde-configs/breezerc "$HOME/.config/breezerc"
+kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key library "org.kde.breeze"
+kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme "Breeze"
+kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSize "None"
 kwriteconfig6 --file kwinrc --group WindowTitleBar --key Font "Space Mono,10,-1,5,63,0,0,0,0,0"
 
 plasma-apply-colorscheme CassetteFuturismDark
@@ -136,6 +142,9 @@ if pgrep -x plasmashell >/dev/null; then
     nohup plasmashell >/dev/null 2>&1 &
   '
 fi
+
+echo "==> Reloading kwin so the window decoration applies without logging out"
+command -v qdbus-qt6 >/dev/null && qdbus-qt6 org.kde.KWin /KWin org.kde.KWin.reconfigure >/dev/null 2>&1 || true
 
 echo ""
 echo "Done. Log out/in if the cursor theme doesn't fully apply everywhere yet."

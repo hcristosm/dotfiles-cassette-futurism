@@ -1,0 +1,6 @@
+[Common]
+OutlineCloseButton=false
+
+[Windeco]
+ButtonSize=ButtonSmall
+DrawBorderOnMaximizedWindows=false

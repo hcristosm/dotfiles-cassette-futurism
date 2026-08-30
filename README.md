@@ -50,6 +50,13 @@ light mode) for KDE Plasma 6, built on Fedora KDE.
   `com.hcristosm.cassettefuturism.datewidget` (the date-only readout,
   vendored), and optional **Kurve** (preferred visualizer, not vendored —
   needs a native build, instructions in that file).
+- **Window decoration** (`kde-configs/breezerc`) — flat Breeze: no outline
+  on the close button, small buttons, no border on maximized windows, plus
+  `BorderSize=None` in `kwinrc`. Gets Breeze (used by Konsole, Dolphin,
+  System Settings, etc.) closer to Chrome's minimal chromeless look — Chrome
+  itself draws its own titlebar on Wayland so it can't fully match, but you
+  can give it the same accent color from `chrome://settings/appearance` →
+  Colors (`#E0873A` dark / `#B5622A` light).
 
 ## Install (fresh Fedora KDE system)
 
