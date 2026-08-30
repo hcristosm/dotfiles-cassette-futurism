@@ -1,0 +1,14 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Authors": [
+            { "Name": "hcristosm" }
+        ],
+        "Category": "",
+        "Description": "Beige industrial look — light variant of the Cassette Futurism rice",
+        "Id": "com.hcristosm.cassettefuturism.light",
+        "License": "CC0",
+        "Name": "Cassette Futurism Light",
+        "Website": "https://github.com/hcristosm/dotfiles-cassette-futurism"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Authors": [
+            { "Name": "hcristosm" }
+        ],
+        "Category": "",
+        "Description": "Amber CRT terminal look — dark variant of the Cassette Futurism rice",
+        "Id": "com.hcristosm.cassettefuturism.dark",
+        "License": "CC0",
+        "Name": "Cassette Futurism Dark",
+        "Website": "https://github.com/hcristosm/dotfiles-cassette-futurism"
+    }
+}

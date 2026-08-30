@@ -26,6 +26,10 @@ light mode) for KDE Plasma 6, built on Fedora KDE.
   display font), both Google Fonts (OFL licensed).
 - **Konsole** (`konsole/`) — existing terminal profile/colorscheme, kept here
   for convenience so a fresh install doesn't lose it.
+- **Global Theme** (`look-and-feel/`) — two Plasma "Look and Feel" packages
+  (`com.hcristosm.cassettefuturism.dark`/`.light`) that bundle the color
+  scheme, wallpaper, icon theme and cursor together so they show up as
+  single selectable entries in System Settings → Appearance → Global Theme.
 
 ## Install (fresh Fedora KDE system)
 
@@ -40,6 +44,12 @@ applies the dark variant, and reloads Plasma config. Log out/in afterwards so
 the cursor theme applies everywhere.
 
 ## Switching light/dark
+
+The easiest way: **System Settings → Appearance → Global Theme**, pick
+"Cassette Futurism Dark" or "Cassette Futurism Light", click Apply — this
+switches colors, wallpaper, icons and cursor together.
+
+Or from the command line:
 
 ```sh
 # dark (default)

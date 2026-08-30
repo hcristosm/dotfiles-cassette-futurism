@@ -44,6 +44,11 @@ mkdir -p "$DATA/konsole"
 cp "$DOTDIR"/konsole/*.profile "$DATA/konsole/" 2>/dev/null || true
 cp "$DOTDIR"/konsole/*.colorscheme "$DATA/konsole/" 2>/dev/null || true
 
+echo "==> Global Theme entries (System Settings > Appearance > Global Theme)"
+mkdir -p "$DATA/plasma/look-and-feel"
+cp -r "$DOTDIR"/look-and-feel/com.hcristosm.cassettefuturism.dark "$DATA/plasma/look-and-feel/"
+cp -r "$DOTDIR"/look-and-feel/com.hcristosm.cassettefuturism.light "$DATA/plasma/look-and-feel/"
+
 echo "==> Applying Plasma settings (dark variant by default)"
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Dark
 kwriteconfig6 --file kcminputrc --group Mouse --key cursorTheme Bibata-Original-Amber
