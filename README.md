@@ -14,11 +14,15 @@ light mode) for KDE Plasma 6, built on Fedora KDE.
   alternate dark wallpaper (green-toned retro office,
   [source](https://wallhaven.cc/w/qroq77)) is kept in `wallpapers/alt/` if
   you want to swap it in.
-- **Icons** — [Papirus](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
-  with folders recolored to orange via
-  [papirus-folders](https://github.com/PapirusDevelopmentTeam/papirus-folders).
-  Not vendored here (fetched by the installer); only the folder-color choice
-  is baked into the script.
+- **Icons** (`icons/yet-another-monochrome-icon-set/`) — vendored copy of
+  [Yet Another Monochrome Icon Set](https://bitbucket.org/dirn-typo/yet-another-monochrome-icon-set)
+  (YAMIS) by dirn-typo (GPLv3): pure black/white, shape-only icons that
+  auto-invert per background (`FollowsColorScheme=true`) — one icon theme
+  covers both the dark and light variant. It inherits from
+  [Papirus](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
+  (installed by the script, folders recolored orange via
+  [papirus-folders](https://github.com/PapirusDevelopmentTeam/papirus-folders))
+  as a fallback for any icon it doesn't have.
 - **Cursor** —
   [Bibata Original Amber](https://github.com/ful1e5/Bibata_Cursor). Not
   vendored; fetched by the installer.
@@ -71,15 +75,15 @@ Or from the command line:
 # dark (default)
 plasma-apply-colorscheme CassetteFuturismDark
 plasma-apply-wallpaperimage ~/.local/share/wallpapers/CassetteFuturismDark/contents/images/3840x2160.png
-kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Dark
 
 # light
 plasma-apply-colorscheme CassetteFuturismLight
 plasma-apply-wallpaperimage ~/.local/share/wallpapers/CassetteFuturismLight/contents/images/5328x3000.jpg
-kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Light
 ```
 
-Then re-run `kbuildsycoca6 --noincremental` or log out/in.
+The icon theme (`yet-another-monochrome-icon-set`) doesn't need to change
+between variants — it self-adapts. Then re-run `kbuildsycoca6 --noincremental`
+or log out/in.
 
 ## Notes
 

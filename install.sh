@@ -1,9 +1,9 @@
 #!/bin/sh
 # Cassette Futurism rice — installer for KDE Plasma
-# Reproduces: color schemes, wallpapers, icons (Papirus + orange folders),
-# cursor (Bibata Original Amber), fonts (Space Mono + VT323), konsole profile,
-# panel layout (top status bar + trimmed bottom taskbar), and desktop
-# widgets (weather for Guarulhos, BR + a date-only readout).
+# Reproduces: color schemes, wallpapers, icons (monochrome YAMIS + Papirus
+# fallback), cursor (Bibata Original Amber), fonts (Space Mono + VT323),
+# konsole profile, panel layout (top status bar + trimmed bottom taskbar),
+# and desktop widgets (weather for Guarulhos, BR + a date-only readout).
 set -e
 
 DOTDIR="$(cd "$(dirname "$0")" && pwd)"
@@ -23,7 +23,12 @@ mkdir -p "$DATA/fonts"
 cp "$DOTDIR"/fonts/*.ttf "$DATA/fonts/"
 fc-cache -f "$DATA/fonts" >/dev/null
 
-echo "==> Icons: Papirus"
+echo "==> Icons: Yet Another Monochrome Icon Set (YAMIS, active theme)"
+mkdir -p "$DATA/icons"
+rm -rf "$DATA/icons/yet-another-monochrome-icon-set"
+cp -r "$DOTDIR"/icons/yet-another-monochrome-icon-set "$DATA/icons/"
+
+echo "==> Icons: Papirus (fallback — YAMIS inherits from it for missing icons)"
 TMP="$(mktemp -d)"
 DESTDIR="$DATA/icons" sh -c "$(curl -sL https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install.sh)"
 
@@ -59,7 +64,7 @@ cp -r "$DOTDIR"/plasmoids/com.hcristosm.cassettefuturism.datewidget "$DATA/plasm
 echo "  (optional: install Kurve for a nicer visualizer — see plasmoids/README.md)"
 
 echo "==> Applying Plasma settings (dark variant by default)"
-kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Dark
+kwriteconfig6 --file kdeglobals --group Icons --key Theme yet-another-monochrome-icon-set
 kwriteconfig6 --file kcminputrc --group Mouse --key cursorTheme Bibata-Original-Amber
 kwriteconfig6 --file kcminputrc --group Mouse --key cursorSize 24
 kwriteconfig6 --file kdeglobals --group General --key font "Space Mono,10,-1,5,50,0,0,0,0,0"
@@ -123,9 +128,18 @@ else
   echo "  (plasmashell not running / qdbus-qt6 missing — skipped; log in and re-run this script, or apply the Global Theme from System Settings, which reproduces the same layout)"
 fi
 
+echo "==> Restarting plasmashell so icons/cursor apply without logging out"
+if pgrep -x plasmashell >/dev/null; then
+  QML_IMPORT_PATH="$HOME/.local/lib64/qml:$HOME/.local/lib/qml:$QML_IMPORT_PATH" sh -c '
+    kquitapp6 plasmashell
+    sleep 2
+    nohup plasmashell >/dev/null 2>&1 &
+  '
+fi
+
 echo ""
-echo "Done. Log out/in for the cursor theme to fully apply everywhere."
+echo "Done. Log out/in if the cursor theme doesn't fully apply everywhere yet."
 echo "To switch to the light variant:"
 echo "  plasma-apply-colorscheme CassetteFuturismLight"
 echo "  plasma-apply-wallpaperimage $DATA/wallpapers/CassetteFuturismLight/contents/images/5328x3000.jpg"
-echo "  kwriteconfig6 --file kdeglobals --group Icons --key Theme Papirus-Light"
+echo "  (icon theme stays yet-another-monochrome-icon-set for both variants — it self-adapts)"

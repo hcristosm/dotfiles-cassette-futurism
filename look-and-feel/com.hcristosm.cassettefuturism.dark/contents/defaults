@@ -5,7 +5,7 @@ widgetStyle=Breeze
 ColorScheme=CassetteFuturismDark
 
 [kdeglobals][Icons]
-Theme=Papirus-Dark
+Theme=yet-another-monochrome-icon-set
 
 [plasmarc][Theme]
 name=default
