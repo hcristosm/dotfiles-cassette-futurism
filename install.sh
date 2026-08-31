@@ -56,12 +56,14 @@ mkdir -p "$DATA/plasma/look-and-feel"
 cp -r "$DOTDIR"/look-and-feel/com.hcristosm.cassettefuturism.dark "$DATA/plasma/look-and-feel/"
 cp -r "$DOTDIR"/look-and-feel/com.hcristosm.cassettefuturism.light "$DATA/plasma/look-and-feel/"
 
-echo "==> Widgets: Audio Wave Widget (fallback visualizer) + date-only readout"
+echo "==> Widgets: Audio Wave Widget (fallback visualizer) + date-only readout + globe"
 mkdir -p "$DATA/plasma/plasmoids"
-rm -rf "$DATA/plasma/plasmoids/Audio.Wave.Widget" "$DATA/plasma/plasmoids/com.hcristosm.cassettefuturism.datewidget"
+rm -rf "$DATA/plasma/plasmoids/Audio.Wave.Widget" "$DATA/plasma/plasmoids/com.hcristosm.cassettefuturism.datewidget" "$DATA/plasma/plasmoids/com.hcristosm.cassettefuturism.globewidget"
 cp -r "$DOTDIR"/plasmoids/Audio.Wave.Widget "$DATA/plasma/plasmoids/"
 cp -r "$DOTDIR"/plasmoids/com.hcristosm.cassettefuturism.datewidget "$DATA/plasma/plasmoids/"
+cp -r "$DOTDIR"/plasmoids/com.hcristosm.cassettefuturism.globewidget "$DATA/plasma/plasmoids/"
 echo "  (optional: install Kurve for a nicer visualizer — see plasmoids/README.md)"
+echo "  (globe widget isn't added to the layout automatically — add it yourself via Add Widgets)"
 
 echo "==> Applying Plasma settings (dark variant by default)"
 kwriteconfig6 --file kdeglobals --group Icons --key Theme yet-another-monochrome-icon-set

@@ -1,0 +1,17 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            { "Name": "hcristosm" }
+        ],
+        "Id": "com.hcristosm.cassettefuturism.globewidget",
+        "Name": "Cassette Futurism Globe",
+        "Description": "Slow-spinning wireframe globe with optional low-frequency satellite overlay (N2YO). Built deliberately lightweight: 2D Canvas at ~5fps, no OpenGL, no spawned processes.",
+        "Icon": "preferences-desktop-globe",
+        "Category": "Miscellaneous",
+        "License": "CC0",
+        "ServiceTypes": ["Plasma/Applet"]
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-MainScript": "ui/main.qml"
+}

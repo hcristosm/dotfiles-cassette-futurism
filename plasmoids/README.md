@@ -11,6 +11,22 @@
   (source in this repo) that shows weekday + day + month + year, no clock
   face. Self-themes off `Kirigami.Theme.highlightColor`/`textColor`, so it
   follows whichever Global Theme (Dark/Light) is active.
+- **`com.hcristosm.cassettefuturism.globewidget`** — slow-spinning wireframe
+  globe (eDEX-UI inspired), with an optional satellite overlay (ISS, Hubble,
+  Tiangong) via the free [N2YO](https://www.n2yo.com/api/) API. **Not**
+  added to the baked panel/desktop layout — install it and add it yourself
+  via *Add Widgets* if you want it, since desktop placement is a personal
+  choice this repo doesn't want to force.
+
+  Deliberately built cheap: plain 2D `Canvas` at ~5-6fps (no OpenGL), static
+  precomputed continent data (no runtime parsing), and satellite positions
+  fetched via QML's built-in `XMLHttpRequest` on a timer — default every 10
+  minutes, configurable in the widget's settings, never per-frame. No
+  spawned processes. This is a direct reaction to two things this repo
+  almost shipped: `Audio.Wave.Widget`'s 25ms `dbus-monitor` polling loop,
+  and Kurve's continuous OpenGL rendering (which was traced to real Chrome
+  GPU-process crashes on this machine). Leave the API key empty for a
+  decorative-only globe with no network activity at all.
 
 ## Optional: Kurve (audio visualizer, preferred)
 
