@@ -3,6 +3,13 @@
 Retro-analog tech aesthetic (amber CRT terminal dark mode / beige industrial
 light mode) for KDE Plasma 6, built on Fedora KDE.
 
+## Screenshots
+
+| Dark | Light |
+| --- | --- |
+| ![Dark desktop](screenshots/dark-desktop.png) | ![Light desktop](screenshots/light-desktop.png) |
+| ![Dark app launcher](screenshots/dark-launcher.png) | ![Light app launcher](screenshots/light-launcher.png) |
+
 ## What's included
 
 - **Color schemes** (`color-schemes/`) — `CassetteFuturismDark` (amber on
