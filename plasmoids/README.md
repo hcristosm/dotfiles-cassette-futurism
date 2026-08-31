@@ -28,6 +28,45 @@
   GPU-process crashes on this machine). Leave the API key empty for a
   decorative-only globe with no network activity at all.
 
+- **`com.hcristosm.cassettefuturism.cavaviz`** — audio spectrum bars driven
+  directly by [cava](https://github.com/karlstav/cava) (`sudo dnf install
+  cava`), not a reimplementation of its FFT. On load (and whenever bar
+  count/framerate/sensitivity/noise reduction change in the widget's config)
+  it regenerates `contents/bin/cava.conf`, resolves the current default
+  sink's `.monitor` source via `pactl get-default-sink` (so it visualizes
+  what you *hear*, not the mic — `cava`'s own `source = auto` picks the
+  default input, i.e. the mic, which is wrong for this use case), and
+  launches `cava` (`method = raw`, `data_format = ascii`) piped through a
+  small shell loop that overwrites `/tmp/plasma-cavaviz-bars` with the
+  latest frame.
+
+  `cava` is launched via `systemd-run --user --collect --unit=plasma-cavaviz`
+  as its own transient scope, **not** backgrounded with `nohup ... &
+  disown` from inside the widget's `executable` data engine job — that was
+  the first approach and it silently killed `cava` seconds after start
+  every time, because Plasma's executable engine appears to tear down the
+  whole cgroup/process group of the command it ran once that job completes,
+  and `nohup`/`disown` only protect against `SIGHUP`/shell job-control, not
+  that. `systemd-run` sidesteps it entirely by handing `cava` to the user
+  systemd manager as an independent unit, `stop`ped and relaunched the same
+  way on config changes, and stopped when the widget is removed. Color and
+  bar spacing apply live with no restart.
+
+  The QML side polls `/tmp/plasma-cavaviz-bars` every 33ms (~30fps) via the
+  `executable` data engine (`cat` the file) and draws bars — cheap because
+  the *file read* is what's polled, not `cava` itself; `cava` keeps running
+  continuously and does the actual audio capture/FFT work once, not once
+  per poll. Not added to the baked panel/desktop layout — add it yourself
+  via *Add Widgets*.
+
+  Worth being honest about: polling a file 30x/sec via a freshly spawned
+  `cat` process each time is the same *shape* of anti-pattern as
+  `Audio.Wave.Widget`'s 25ms `dbus-monitor` loop above — a process forked
+  per frame. It's much lighter in practice (no D-Bus round trip, no GPU
+  compositing like Kurve), but if this ever turns out to be a problem, the
+  fix is switching the poll from a spawned `cat` to a QML `FileWatcher` or a
+  persistent reader, not adding cava instances.
+
 ## Optional: Kurve (audio visualizer, preferred)
 
 The panel layout defaults to

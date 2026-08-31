@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "hcristosm"
+            }
+        ],
+        "Category": "Multimedia",
+        "Description": "Audio spectrum visualizer powered directly by cava",
+        "Icon": "audio-volume-high",
+        "Id": "com.hcristosm.cassettefuturism.cavaviz",
+        "Name": "Cava Visualizer",
+        "Version": "1.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+    <kcfgfile name=""/>
+    <group name="General">
+        <entry name="barColor" type="Color">
+            <default>0,255,156</default>
+        </entry>
+        <entry name="barCount" type="Int">
+            <default>24</default>
+            <min>4</min>
+            <max>64</max>
+        </entry>
+        <entry name="barSpacing" type="Int">
+            <default>3</default>
+            <min>0</min>
+            <max>20</max>
+        </entry>
+        <entry name="framerate" type="Int">
+            <default>60</default>
+            <min>10</min>
+            <max>144</max>
+        </entry>
+        <entry name="sensitivity" type="Int">
+            <default>100</default>
+            <min>10</min>
+            <max>400</max>
+        </entry>
+        <entry name="noiseReduction" type="Int">
+            <default>55</default>
+            <min>0</min>
+            <max>100</max>
+        </entry>
+    </group>
+</kcfg>
