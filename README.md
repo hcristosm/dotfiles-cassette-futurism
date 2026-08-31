@@ -43,7 +43,11 @@ dark mode, beige industrial in light mode.
   centered, system tray right) and a bottom panel trimmed down to
   launcher/pager/taskbar. Baked into the Global Theme packages'
   `layouts/org.kde.plasma.desktop-layout.js`, and applied directly by
-  `install.sh` via `qdbus-qt6`.
+  `install.sh` via `qdbus-qt6`. The left slot is a single widget, easy to
+  swap for anything else the same size, a CPU/memory monitor works well
+  there too. Bottom panel width behavior (fill vs. fit-content/floating
+  dock) is a per-panel display setting, not something the layout script
+  sets, so adjust it by hand in Edit Mode if you want the floating look.
 - **Desktop widgets**: a BBC weather widget (preconfigured for Guarulhos, SP)
   stacked above a date-only readout (weekday, day, month, year, no clock
   face, self-themed off the active color scheme). Both sit top-left, baked
@@ -79,6 +83,24 @@ the cursor theme applies everywhere.
 Easiest way: System Settings → Appearance → Global Theme, pick "Cassette
 Futurism Dark" or "Cassette Futurism Light", click Apply. Switches colors,
 wallpaper, icons, and cursor together.
+
+Leave the **Layout** checkbox unticked in that apply dialog unless you
+actually want to reset your panels. It doesn't merge with what's already
+there, it wipes every containment (desktop + panels) and rebuilds from
+`layouts/org.kde.plasma.desktop-layout.js`, which means any widget you've
+added since install (the globe widget, a swapped-in CPU monitor, whatever)
+gets deleted and the audio visualizer comes back. Wallpaper has no checkbox
+of its own in Plasma 6, it only changes when Layout does, so if you want
+wallpaper to switch without touching your panels, use the CLI instead:
+
+```sh
+plasma-apply-lookandfeel -a com.hcristosm.cassettefuturism.dark   # or .light
+```
+
+That applies colors, wallpaper, icons, and cursor in one shot, panels
+untouched. Cursor changes always need a logout/login to show up everywhere,
+xcursor themes get cached per-process, that part isn't specific to this
+rice.
 
 Or from the command line:
 
